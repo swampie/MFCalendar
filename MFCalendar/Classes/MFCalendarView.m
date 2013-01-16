@@ -59,7 +59,14 @@
 }
 
 -(void)layoutSubviews {
-    self.backgroundColor = [UIColor redColor];
+    
+    CGRect headerRect = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, 40);
+    UIView * header = [[UIView alloc] initWithFrame:headerRect];
+    header.backgroundColor = self.headerBackgroundColor ? self.headerBackgroundColor : [UIColor yellowColor];
+    [self addSubview:header];
+
+    
+    
 }
 
 /*

@@ -27,7 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.calView = [[MFCalendarView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+    self.calView = [[MFCalendarView alloc] initWithFrame:CGRectMake(0, 15, 300, 300)];
+    self.calView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.calView];
 	// Do any additional setup after loading the view.
 }
