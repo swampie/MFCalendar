@@ -7,44 +7,39 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
+#import "MFCalendarCell.h"
 
-typedef void(^OnDayDraw)(NSCalendar * day);
 
 @protocol MFCalendarViewDelegate
 -(void) onDaySelect:(NSCalendar *)day;
 @end
 
-
-@interface MFCalendarView : UIView
+typedef void(^dayDraw)(NSDate * day,MFCalendarCell * cell);
+@interface MFCalendarView : UIView {
+    UIView* calendarGridView;
+    dayDraw onDayDraw;
+}
 
 #pragma mark Configuration
-
-
-
-
-
-
 
 @property(nonatomic,strong) UIColor * dayBackgroundColor;
 @property(nonatomic,strong) UIColor * highlightedDaysBackground;
 @property(nonatomic,strong) UIColor * headerBackgroundColor;
 @property(nonatomic,strong) UIImage * prevMonthButton;
 @property(nonatomic,strong) UIImage * nextMonthButton;
-
+@property(nonatomic,strong) NSArray * cells;
 @property(nonatomic,strong) NSDictionary * highlightedDaysCache;
 
-@property(nonatomic,strong) NSCalendar * startDate;
-@property(nonatomic,strong) NSCalendar * currentDate;
+@property(nonatomic,strong) NSCalendar * calendar;
+@property(nonatomic,strong) NSDate * currentDate;
 
+@property(nonatomic,copy) dayDraw onDayDraw;
 
--(id)initWithStartDate:(NSCalendar*)startDate;
+-(id)initWithStartDate:(NSDate*)startDate;
+-(void)onChangeDateFrom:(NSDate *) from to:(NSDate *) to;
 
--(void)onChangeDateFrom:(NSCalendar *) from to:(NSCalendar *) to;
-
--(void)onChangeDateFrom:(NSCalendar *) from to:(NSCalendar *) to highlightingDays:(NSArray *) daysToHighlight;
-
-
-
+-(void)onChangeDateFrom:(NSDate *) from to:(NSDate *) to highlightingDays:(NSArray *) daysToHighlight;
 
 
 

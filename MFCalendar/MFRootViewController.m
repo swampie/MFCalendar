@@ -27,8 +27,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.calView = [[MFCalendarView alloc] initWithFrame:CGRectMake(0, 15, 300, 300)];
+    
+    self.calView = [[MFCalendarView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
     self.calView.backgroundColor = [UIColor redColor];
+    self.calView.onDayDraw = ^(NSDate* d,MFCalendarCell * cell){
+        NSDateComponents *components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit
+                                                        fromDate: d];
+        
+        NSUInteger day = components.day;
+        if(day>10 && day < 20){
+            [cell setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+            [cell setBackgroundColor:[UIColor greenColor]];
+        }
+    };
     [self.view addSubview:self.calView];
 	// Do any additional setup after loading the view.
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0204477016A85EE1001A248B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0204476F16A85EE1001A248B /* QuartzCore.framework */; };
 		02B0832216A6D5160058714B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B0832116A6D5160058714B /* UIKit.framework */; };
 		02B0832416A6D5160058714B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B0832316A6D5160058714B /* Foundation.framework */; };
 		02B0832616A6D5160058714B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B0832516A6D5160058714B /* CoreGraphics.framework */; };
@@ -18,9 +19,11 @@
 		02B0833816A6D5170058714B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02B0833716A6D5170058714B /* Default-568h@2x.png */; };
 		02B0834916A70CBA0058714B /* MFCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B0834816A70CBA0058714B /* MFCalendarView.m */; };
 		02B0834C16A717200058714B /* MFRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B0834B16A717200058714B /* MFRootViewController.m */; };
+		02B0834F16A84C920058714B /* MFCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B0834E16A84C920058714B /* MFCalendarCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0204476F16A85EE1001A248B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		02B0831D16A6D5160058714B /* MFCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MFCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02B0832116A6D5160058714B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		02B0832316A6D5160058714B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -38,6 +41,8 @@
 		02B0834816A70CBA0058714B /* MFCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFCalendarView.m; sourceTree = "<group>"; };
 		02B0834A16A717200058714B /* MFRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFRootViewController.h; sourceTree = "<group>"; };
 		02B0834B16A717200058714B /* MFRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFRootViewController.m; sourceTree = "<group>"; };
+		02B0834D16A84C920058714B /* MFCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFCalendarCell.h; sourceTree = "<group>"; };
+		02B0834E16A84C920058714B /* MFCalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFCalendarCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0204477016A85EE1001A248B /* QuartzCore.framework in Frameworks */,
 				02B0832216A6D5160058714B /* UIKit.framework in Frameworks */,
 				02B0832416A6D5160058714B /* Foundation.framework in Frameworks */,
 				02B0832616A6D5160058714B /* CoreGraphics.framework in Frameworks */,
@@ -74,6 +80,7 @@
 		02B0832016A6D5160058714B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0204476F16A85EE1001A248B /* QuartzCore.framework */,
 				02B0832116A6D5160058714B /* UIKit.framework */,
 				02B0832316A6D5160058714B /* Foundation.framework */,
 				02B0832516A6D5160058714B /* CoreGraphics.framework */,
@@ -113,6 +120,8 @@
 			children = (
 				02B0834716A70CBA0058714B /* MFCalendarView.h */,
 				02B0834816A70CBA0058714B /* MFCalendarView.m */,
+				02B0834D16A84C920058714B /* MFCalendarCell.h */,
+				02B0834E16A84C920058714B /* MFCalendarCell.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -187,6 +196,7 @@
 				02B0833216A6D5160058714B /* MFAppDelegate.m in Sources */,
 				02B0834916A70CBA0058714B /* MFCalendarView.m in Sources */,
 				02B0834C16A717200058714B /* MFRootViewController.m in Sources */,
+				02B0834F16A84C920058714B /* MFCalendarCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
