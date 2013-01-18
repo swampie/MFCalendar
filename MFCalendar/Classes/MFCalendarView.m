@@ -19,6 +19,9 @@
 
 static const CGFloat kGridMargin = 6;
 
+
+
+
 @synthesize dayBackgroundColor = _dayBackgroundColor;
 @synthesize highlightedDaysBackground = _highlightedDaysBackground;
 @synthesize headerBackgroundColor = _headerBackgroundColor;
@@ -179,9 +182,7 @@ static const CGFloat kGridMargin = 6;
         NSMutableArray *cells = [NSMutableArray array];
         for (NSUInteger i = 1; i <= 31; ++i) {
             MFCalendarCell *cell = [MFCalendarCell new];
-            cell.backgroundColor = [UIColor whiteColor];
             cell.day = i;
-            [cell setTitleColor: [UIColor redColor] forState:UIControlStateNormal];
             //[cell addTarget: self
             //         action: @selector(touchedCellView:)
            //forControlEvents: UIControlEventTouchUpInside];

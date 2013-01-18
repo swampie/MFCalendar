@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0204477016A85EE1001A248B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0204476F16A85EE1001A248B /* QuartzCore.framework */; };
+		0204477416A86D64001A248B /* MFCalendarCellConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0204477316A86D64001A248B /* MFCalendarCellConfiguration.m */; };
 		02B0832216A6D5160058714B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B0832116A6D5160058714B /* UIKit.framework */; };
 		02B0832416A6D5160058714B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B0832316A6D5160058714B /* Foundation.framework */; };
 		02B0832616A6D5160058714B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B0832516A6D5160058714B /* CoreGraphics.framework */; };
@@ -24,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		0204476F16A85EE1001A248B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		0204477216A86D64001A248B /* MFCalendarCellConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFCalendarCellConfiguration.h; sourceTree = "<group>"; };
+		0204477316A86D64001A248B /* MFCalendarCellConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFCalendarCellConfiguration.m; sourceTree = "<group>"; };
 		02B0831D16A6D5160058714B /* MFCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MFCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02B0832116A6D5160058714B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		02B0832316A6D5160058714B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -122,6 +125,8 @@
 				02B0834816A70CBA0058714B /* MFCalendarView.m */,
 				02B0834D16A84C920058714B /* MFCalendarCell.h */,
 				02B0834E16A84C920058714B /* MFCalendarCell.m */,
+				0204477216A86D64001A248B /* MFCalendarCellConfiguration.h */,
+				0204477316A86D64001A248B /* MFCalendarCellConfiguration.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 				02B0834916A70CBA0058714B /* MFCalendarView.m in Sources */,
 				02B0834C16A717200058714B /* MFRootViewController.m in Sources */,
 				02B0834F16A84C920058714B /* MFCalendarCell.m in Sources */,
+				0204477416A86D64001A248B /* MFCalendarCellConfiguration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

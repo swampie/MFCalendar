@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MFCalendarCell.h"
 
-
+#import "MFCalendarCellConfiguration.h"
 @protocol MFCalendarViewDelegate
 -(void) onDaySelect:(NSCalendar *)day;
 @end
@@ -38,6 +38,9 @@ typedef void(^dayDraw)(NSDate * day,MFCalendarCell * cell);
 
 -(id)initWithStartDate:(NSDate*)startDate;
 -(void)onChangeDateFrom:(NSDate *) from to:(NSDate *) to;
+
+
+
 
 -(void)onChangeDateFrom:(NSDate *) from to:(NSDate *) to highlightingDays:(NSArray *) daysToHighlight;
 

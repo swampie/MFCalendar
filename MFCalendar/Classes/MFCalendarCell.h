@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MFCalendarCellConfiguration.h"
 @interface MFCalendarCell : UIButton 
 
 @property(nonatomic) NSUInteger day;
+
+@property(nonatomic,strong) MFCalendarCellConfiguration * configuration;
+
+
+
 @end
