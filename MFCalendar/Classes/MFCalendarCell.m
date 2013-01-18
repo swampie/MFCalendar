@@ -25,6 +25,10 @@
     return _configuration;
 }
 
+-(void)setConfiguration:(MFCalendarCellConfiguration *)configuration{
+    _configuration = configuration;
+    [self conf];
+}
 
 
 - (void) setDay: (NSUInteger) day {

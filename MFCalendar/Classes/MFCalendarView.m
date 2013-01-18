@@ -27,13 +27,15 @@ static const CGFloat kGridMargin = 6;
 @synthesize headerBackgroundColor = _headerBackgroundColor;
 @synthesize prevMonthButton = _prevMonthButton;
 @synthesize nextMonthButton = _nextMonthButton;
-@synthesize cells = _cells;
 @synthesize highlightedDaysCache = _highlightedDaysCache;
+
+@synthesize delegate = _delegate;
 
 @synthesize calendar = _calendar;
 @synthesize currentDate = _currentDate;
 
 @synthesize onDayDraw = _onDayDraw;
+@synthesize onDateChange = _onDateChange;
 
 - (NSUInteger) currentMonth {
     NSDateComponents *components = [self.calendar components: NSMonthCalendarUnit
@@ -47,8 +49,17 @@ static const CGFloat kGridMargin = 6;
                                                     fromDate: self.currentDate];
     return components.year;
 }
+-(NSMutableDictionary*)highlightedDaysCache{
+    if(!_highlightedDaysCache){
+        _highlightedDaysCache = [[NSMutableDictionary alloc] init];
+    }
+    return _highlightedDaysCache;
+}
 
-
+-(void)setHighlightedDaysCache:(NSMutableDictionary *)highlightedDaysCache{
+    _highlightedDaysCache = highlightedDaysCache;
+    cells = nil;
+}
 
 
 -(NSDate*)currentDate {
@@ -84,26 +95,27 @@ static const CGFloat kGridMargin = 6;
 
 -(void)onChangeDateFrom:(NSDate *) from to:(NSDate *) to {
     self.currentDate = to;
-    
-}
-
--(void)onChangeDateFrom:(NSDate *) from to:(NSDate *) to highlightingDays:(NSArray*) days{
-    
-    self.currentDate = to;
-
+    if(self.onDateChange){
+        self.onDateChange(from,to);
+    }
 }
 
 -(void)addMonth{
     NSDateComponents *monthStep = [NSDateComponents new];
     monthStep.month = 1;
+    NSDate * prev = self.currentDate;
     self.currentDate = [self.calendar dateByAddingComponents: monthStep toDate: self.currentDate options: 0];
+    [self onChangeDateFrom:prev to:self.currentDate];
+    
     [self setNeedsLayout];
 }
 
 -(void)subMonth{
     NSDateComponents *monthStep = [NSDateComponents new];
     monthStep.month = -1;
+    NSDate * prev = self.currentDate;
     self.currentDate = [self.calendar dateByAddingComponents: monthStep toDate: self.currentDate options: 0];
+    [self onChangeDateFrom:prev to:self.currentDate];
     [self setNeedsLayout];
 }
 
@@ -111,17 +123,11 @@ static const CGFloat kGridMargin = 6;
     
     CGRect headerRect = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, 40);
     UIView * header = [[UIView alloc] initWithFrame:headerRect];
-    
-    
     UIButton * prevMonth = [UIButton buttonWithType:UIButtonTypeCustom];
     prevMonth.frame = CGRectMake(0,0,40,40);
     [prevMonth setTitle:@"<<" forState:UIControlStateNormal];
     prevMonth.titleLabel.textColor = [UIColor whiteColor];
-    
-    
     [prevMonth addTarget:self action:@selector(subMonth) forControlEvents:UIControlEventTouchDown];
-    
-    
     prevMonth.backgroundColor = [UIColor blackColor];
     [header addSubview:prevMonth];
     
@@ -145,8 +151,6 @@ static const CGFloat kGridMargin = 6;
     [nextMonth addTarget:self action:@selector(addMonth) forControlEvents:UIControlEventTouchDown];
     [header addSubview:nextMonth];
     
-    
-    
     CGRect calendarViewFrame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y + CGRectGetMaxY(headerRect), self.bounds.size.width, self.bounds.size.height - CGRectGetHeight(headerRect));
     
     calendarGridView = [[UIView alloc] initWithFrame:calendarViewFrame];
@@ -166,39 +170,54 @@ static const CGFloat kGridMargin = 6;
     CGFloat cellHeight = (calendarGridView.bounds.size.height - kGridMargin * 2) / 6.0;
     CGFloat cellWidth = (calendarGridView.bounds.size.width - kGridMargin * 2) / 7.0;
     cellHeight = cellWidth = MIN(cellWidth,cellHeight);
+    
     for (NSUInteger i = 0; i < [self.cells count]; ++i) {
-        UILabel *cellView = [self.cells objectAtIndex:i];
+        MFCalendarCell *cellView = [self.cells objectAtIndex:i];
         cellView.frame = CGRectMake(cellWidth * (((shift + i) % 7))+kGridMargin, cellHeight * ((shift + i) / 7) + kGridMargin,
                                     cellWidth, cellHeight);
-        NSLog(@"%@", CGRectCreateDictionaryRepresentation(cellView.frame));
         cellView.hidden = i >= range.length;
+        NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"dd/MM/yyyy"];
         
+        NSString * dayS = i < 10 ? [NSString stringWithFormat:@"0%d",i] : [NSString stringWithFormat:@"%d",i];
+        NSString * monthS = self.currentMonth < 10 ? [NSString stringWithFormat:@"0%d",self.currentMonth] : [NSString stringWithFormat:@"%d",self.currentMonth];
+        
+        NSString * dateString = [NSString stringWithFormat:@"%@/%@/%d",dayS,monthS,[self currentYear]];
+        NSDate * d = [formatter dateFromString:dateString];
+        if(self.highlightedDaysCache && [self.highlightedDaysCache objectForKey:dateString]){
+            id conf = [self.highlightedDaysCache objectForKey:dateString];
+            if([conf isKindOfClass:[MFCalendarCellConfiguration class]]){
+                cellView.configuration = conf;
+            }
+        }else{
+            cellView.configuration = [MFCalendarCellConfiguration defaultConf];
+        }
+    if(self.onDayDraw){
+        self.onDayDraw(d,cellView);
     }
+    [cellView setNeedsLayout];
     
+    }
 }
 
 - (NSArray *) cells {
-    if(!_cells){
-        NSMutableArray *cells = [NSMutableArray array];
+    if(!cells){
+        NSMutableArray *cellsArray = [NSMutableArray array];
         for (NSUInteger i = 1; i <= 31; ++i) {
             MFCalendarCell *cell = [MFCalendarCell new];
             cell.day = i;
-            //[cell addTarget: self
+                        //[cell addTarget: self
             //         action: @selector(touchedCellView:)
            //forControlEvents: UIControlEventTouchUpInside];
-            [cells addObject:cell];
-            if(self.onDayDraw){
-                NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"dd/MM/yyyy"];
-                NSDate * d = [formatter dateFromString:[NSString stringWithFormat:@"%d/%d/%d",i,[self currentMonth],[self currentYear]]];
-                self.onDayDraw(d,cell);
-            }
+            [cellsArray addObject:cell];
+            
+            
             [calendarGridView addSubview: cell];
         }
-        _cells = cells;
+        cells = cellsArray;
     }
     
-    return _cells;
+    return cells;
 }
 
 /*
@@ -209,5 +228,14 @@ static const CGFloat kGridMargin = 6;
     // Drawing code
 }
 */
+
+-(void)addToHighlightedDay:(NSString *)date configuration:(MFCalendarCellConfiguration *)configuration{
+    [self.highlightedDaysCache setObject:configuration forKey:date];
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd/MM/yyyy"];
+    
+    
+    
+}
 
 @end

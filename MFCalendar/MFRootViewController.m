@@ -30,16 +30,31 @@
     
     self.calView = [[MFCalendarView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
     self.calView.backgroundColor = [UIColor redColor];
-    self.calView.onDayDraw = ^(NSDate* d,MFCalendarCell * cell){
-        NSDateComponents *components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit
-                                                        fromDate: d];
         
-        NSUInteger day = components.day;
-        if(day>10 && day < 20){
-            [cell setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-            [cell setBackgroundColor:[UIColor greenColor]];
+    __block MFCalendarView* bView = self.calView;
+    self.calView.onDateChange = ^(NSDate * from,NSDate * to){
+        NSDateComponents * comps = [[NSCalendar currentCalendar] components: NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
+                                                    fromDate: to];
+        
+        NSUInteger month = comps.month;
+        NSUInteger year = comps.year;
+        NSString * intFormat = @"%d"
+        ;
+        MFCalendarCellConfiguration * conf = [[MFCalendarCellConfiguration alloc] initWithTextColor:[UIColor whiteColor]backgroundColor:[UIColor darkGrayColor] selectable:YES];
+        
+        
+        NSString * monthS = [NSString stringWithFormat:intFormat,month];
+        NSString * yearS = [NSString stringWithFormat:intFormat,year];
+        if([[yearS substringFromIndex:3] isEqualToString:monthS]){
+            for(int i=0;i<=2;i++){
+                NSString * key = [NSString stringWithFormat:@"%d%d/0%d/%d",i,month-1,month,year];
+                [bView addToHighlightedDay:key configuration:conf];
+                
+            }
         }
+    [bView setNeedsLayout];
     };
+
     [self.view addSubview:self.calView];
 	// Do any additional setup after loading the view.
 }
