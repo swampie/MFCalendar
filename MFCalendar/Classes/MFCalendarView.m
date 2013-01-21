@@ -195,8 +195,6 @@ static const CGFloat kGridMargin = 6;
     if(self.onDayDraw){
         self.onDayDraw(d,cellView);
     }
-    [cellView setNeedsLayout];
-    
     }
 }
 
