@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.name         = "MFCalendar"
   s.version      = "0.0.1"
   s.homepage     = "https://github.com/swampie/MFCalendar" 
-  s.summary 	 = "A calendar component with highlight behaviour"
+  s.summary 	 = "A calendar component with highlight behaviour."
   s.license      = 'WTFPL'
   s.author       = { "swampie" => "matteo.fiandesio@gmail.com" }
   s.source       = { :git => "https://github.com/swampie/MFCalendar.git", :tag => "0.0.1" }
